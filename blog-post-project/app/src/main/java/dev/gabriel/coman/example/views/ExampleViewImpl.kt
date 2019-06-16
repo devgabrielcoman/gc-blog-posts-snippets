@@ -1,4 +1,4 @@
-package dev.gabriel.coman.example.examples
+package dev.gabriel.coman.example.views
 
 import android.content.Context
 import android.util.AttributeSet

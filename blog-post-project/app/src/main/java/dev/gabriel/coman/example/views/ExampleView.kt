@@ -1,4 +1,4 @@
-package dev.gabriel.coman.example.examples
+package dev.gabriel.coman.example.views
 
 import android.widget.Button
 import android.widget.ImageView
