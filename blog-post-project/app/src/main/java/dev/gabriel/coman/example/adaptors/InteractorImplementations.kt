@@ -1,20 +1,24 @@
 package dev.gabriel.coman.example.adaptors
 
-import dev.gabriel.coman.example.interactors.ContactInteractor
-import dev.gabriel.coman.example.interactors.LastSeenInteractor
-import dev.gabriel.coman.example.interactors.MainScreenInteractor
+import android.content.Context
+import dev.gabriel.coman.example.interactors.*
+import dev.gabriel.coman.example.navigators.BasicNavigator
 import dev.gabriel.coman.example.viewmodels.ViewModel
 
-class ContactInteractorImpl(private val viewModel: ViewModel): ContactInteractor {
-    override fun initialDataLoad() = viewModel.getContact()
+class LoadContactInteractorImpl(private val viewModel: ViewModel): LoadContactInteractor {
+    override fun load() = viewModel.getContact()
+}
+
+class LoadLastSeenInteractorImpl(private val viewModel: ViewModel): LoadLastSeenInteractor {
+    override fun load() = viewModel.getLastSeen()
+}
+
+class AddOrRemoveContactInteractorImpl(private val viewModel: ViewModel): AddOrRemoveContactInteractor {
     override fun addOrRemoveFromFavourites() = viewModel.addToFavourites()
 }
 
-class LastSeenInteractorImpl(private val viewModel: ViewModel): LastSeenInteractor {
-    override fun initialDataLoad() = viewModel.getLastSeen()
-}
-
-class MainScreenInteractorImpl(viewModel: ViewModel): MainScreenInteractor {
-    override val contactInteractor: ContactInteractor = ContactInteractorImpl(viewModel = viewModel)
-    override val lastSeenInteractor: LastSeenInteractor = LastSeenInteractorImpl(viewModel = viewModel)
+class CallInteractorImpl(
+    private val navigator: BasicNavigator
+): CallInteractor {
+    override fun call(context: Context) = navigator.gotoCallScreen(context = context)
 }

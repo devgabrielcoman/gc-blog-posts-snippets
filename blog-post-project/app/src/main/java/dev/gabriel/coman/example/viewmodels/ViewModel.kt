@@ -1,22 +1,23 @@
 package dev.gabriel.coman.example.viewmodels
 
 import dev.gabriel.coman.example.adaptors.MainScreenViewStateImp
+import dev.gabriel.coman.example.adaptors.mapDTO
 import dev.gabriel.coman.example.data.Api
-import dev.gabriel.coman.example.data.Contact
-import dev.gabriel.coman.example.data.LastSeen
+import dev.gabriel.coman.example.data.ContactDTO
+import dev.gabriel.coman.example.data.LastSeenDTO
 import dev.gabriel.coman.example.state.MainScreenViewState
 
 typealias ViewModelUpdate = (MainScreenViewState) -> Unit
 
 class ViewModel(private val api: Api) {
 
-    private var contact: Contact = Contact.default
+    private var contact: ContactDTO = ContactDTO.default
         set(value) {
             field = value
             update(contact, lastSeen)
         }
 
-    private var lastSeen: LastSeen = LastSeen.default
+    private var lastSeen: LastSeenDTO = LastSeenDTO.default
         set(value) {
             field = value
             update(contact, lastSeen)
@@ -36,5 +37,12 @@ class ViewModel(private val api: Api) {
         this.lastSeen = api.getLastSeen()
     }
 
-    private fun update(contact: Contact, lastSeen: LastSeen) = update?.invoke(MainScreenViewStateImp(contact, lastSeen)) ?: Unit
+    private fun update(contact: ContactDTO, lastSeen: LastSeenDTO) {
+        update?.invoke(
+            MainScreenViewStateImp(
+                mapDTO(dto = contact),
+                mapDTO(dto = lastSeen)
+            )
+        )
+    }
 }

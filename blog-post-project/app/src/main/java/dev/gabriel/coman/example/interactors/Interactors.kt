@@ -1,20 +1,19 @@
 package dev.gabriel.coman.example.interactors
 
-interface ContactInteractor {
-    fun initialDataLoad()
+import android.content.Context
+
+interface LoadContactInteractor {
+    fun load()
+}
+
+interface LoadLastSeenInteractor {
+    fun load()
+}
+
+interface AddOrRemoveContactInteractor {
     fun addOrRemoveFromFavourites()
 }
 
-interface SimpleContactInteractor {
-    fun initialDataLoad()
-    fun callContact()
-}
-
-interface LastSeenInteractor {
-    fun initialDataLoad()
-}
-
-interface MainScreenInteractor {
-    val contactInteractor: ContactInteractor
-    val lastSeenInteractor: LastSeenInteractor
+interface CallInteractor {
+    fun call(context: Context)
 }

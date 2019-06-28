@@ -10,11 +10,6 @@ interface ContactViewState {
     val followButtonTitle: String
 }
 
-interface SimpleContactViewState {
-    val nameText: String
-    val phoneNumberText: String
-}
-
 interface LastSeenViewState {
     val lastSeenText: String
 }
@@ -22,4 +17,8 @@ interface LastSeenViewState {
 interface MainScreenViewState {
     val contactViewState: ContactViewState
     val lastSeenViewState: LastSeenViewState
+}
+
+interface CallViewState {
+    val callingText: String
 }

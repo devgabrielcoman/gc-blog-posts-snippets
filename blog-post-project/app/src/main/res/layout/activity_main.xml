@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         tools:context=".MainActivity">
 
-    <dev.gabriel.coman.example.views.ExampleViewImpl
+    <dev.gabriel.coman.example.views.ContactViewImpl
             android:id="@+id/contact_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

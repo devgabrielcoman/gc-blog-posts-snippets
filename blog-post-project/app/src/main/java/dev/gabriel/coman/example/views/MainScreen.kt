@@ -1,6 +1,6 @@
 package dev.gabriel.coman.example.views
 
 interface MainScreen {
-    val contactView: ExampleView
+    val contactView: ContactView
     val lastSeenView: LastSeenView
 }

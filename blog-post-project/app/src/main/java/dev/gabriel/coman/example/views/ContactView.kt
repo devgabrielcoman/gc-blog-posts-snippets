@@ -4,7 +4,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
-interface ExampleView {
+interface ContactView {
     val nameTextView: TextView
     val phoneTextView: TextView
     val iconImageView: ImageView

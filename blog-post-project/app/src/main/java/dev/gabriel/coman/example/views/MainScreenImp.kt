@@ -10,7 +10,7 @@ class MainScreenImp
 @JvmOverloads
 constructor(context: Context?, attrs: AttributeSet? = null): RelativeLayout(context, attrs), MainScreen {
 
-    override val contactView: ExampleView by lazy { findViewById<ExampleViewImpl>(R.id.contact_view) }
+    override val contactView: ContactView by lazy { findViewById<ContactViewImpl>(R.id.contact_view) }
     override val lastSeenView: LastSeenView by lazy { findViewById<LastSeenViewImpl>(R.id.last_seen_view) }
 
     init {

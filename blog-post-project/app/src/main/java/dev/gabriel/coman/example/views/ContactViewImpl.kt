@@ -9,9 +9,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import dev.gabriel.coman.example.R
 
-class ExampleViewImpl
+class ContactViewImpl
 @JvmOverloads
-constructor(context: Context?, attrs: AttributeSet? = null): RelativeLayout(context, attrs), ExampleView {
+constructor(context: Context?, attrs: AttributeSet? = null): RelativeLayout(context, attrs), ContactView {
 
     override val nameTextView by lazy { findViewById<TextView>(R.id.contact_user_name) }
     override val phoneTextView by lazy { findViewById<TextView>(R.id.contact_phone_number) }

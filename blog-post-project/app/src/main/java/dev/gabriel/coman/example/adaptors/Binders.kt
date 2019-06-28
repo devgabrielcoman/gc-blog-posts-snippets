@@ -1,38 +1,32 @@
 package dev.gabriel.coman.example.adaptors
 
-import dev.gabriel.coman.example.interactors.ContactInteractor
-import dev.gabriel.coman.example.interactors.LastSeenInteractor
-import dev.gabriel.coman.example.interactors.MainScreenInteractor
-import dev.gabriel.coman.example.interactors.SimpleContactInteractor
-import dev.gabriel.coman.example.views.ExampleView
+import dev.gabriel.coman.example.interactors.AddOrRemoveContactInteractor
+import dev.gabriel.coman.example.interactors.CallInteractor
+import dev.gabriel.coman.example.interactors.LoadContactInteractor
+import dev.gabriel.coman.example.interactors.LoadLastSeenInteractor
+import dev.gabriel.coman.example.views.ContactView
 import dev.gabriel.coman.example.views.LastSeenView
-import dev.gabriel.coman.example.views.MainScreen
 
-fun bind(contactInteractor: ContactInteractor): (ExampleView) -> Unit {
+fun bind(loadContactInteractor: LoadContactInteractor): (ContactView) -> Unit {
     return { view ->
-        view.followButton.setOnClickListener { contactInteractor.addOrRemoveFromFavourites() }
-        contactInteractor.initialDataLoad()
+        loadContactInteractor.load()
     }
 }
 
-fun bind(simpleContactInteractor: SimpleContactInteractor): (ExampleView) -> Unit {
+fun bind(loadLastSeenInteractor: LoadLastSeenInteractor): (LastSeenView) -> Unit {
     return { view ->
-        view.phoneTextView.setOnClickListener { simpleContactInteractor.callContact() }
-        simpleContactInteractor.initialDataLoad()
+        loadLastSeenInteractor.load()
     }
 }
 
-fun bind(lastSeenInteractor: LastSeenInteractor): (LastSeenView) -> Unit {
+fun bind(addOrRemoveContactInteractor: AddOrRemoveContactInteractor): (ContactView) -> Unit {
     return { view ->
-        lastSeenInteractor.initialDataLoad()
+        view.followButton.setOnClickListener { addOrRemoveContactInteractor.addOrRemoveFromFavourites() }
     }
 }
 
-fun bind(mainScreenInteractor: MainScreenInteractor): (MainScreen) -> Unit {
+fun bind(callInteractor: CallInteractor): (ContactView) -> Unit {
     return { view ->
-        val bindContact = bind(contactInteractor = mainScreenInteractor.contactInteractor)
-        val bindLastSeen = bind(lastSeenInteractor = mainScreenInteractor.lastSeenInteractor)
-        bindContact(view.contactView)
-        bindLastSeen(view.lastSeenView)
+        view.phoneTextView.setOnClickListener { callInteractor.call(context = it.context) }
     }
 }
