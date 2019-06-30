@@ -11,11 +11,10 @@ object DI {
     val callViewModel = CallViewModel(repo = contactRepository)
     val lastSeenViewModel = LastSeenViewModel(repo = lastSeenRepository)
 
-    val loadFullCtInteractor = LoadCtInteractorImpl(viewModel = contactViewModel)
 
-    val loadFullContactInteractor = LoadFullContactInteractor(viewModel = contactViewModel)
-    val loadCallContactInteractor = LoadCalledContactInteractor(viewModel = callViewModel)
-    val addContactToFavouritesInteractor = AddContactToFavouritesInteractorImpl(viewModel = contactViewModel)
-    val loadLastSeenInteractor = LoadLastSeenInteractorImpl(viewModel = lastSeenViewModel)
-    val callContactInteractor = CallContactInteractorImpl(navigator = navigator)
+    val newLoadFullContactInteractor = LoadFullContactInteractor(viewModel = contactViewModel)
+    val newCallContactInteractor = LoadCalledContactInteractor(viewModel = callViewModel)
+    val addContactToFavouritesInteractor = AddContactToFavouritesInteractor(viewModel = contactViewModel)
+    val loadLastSeenInteractor = LoadLastSeenInteractor(viewModel = lastSeenViewModel)
+    val callContactInteractor = CallContactInteractor(navigator = navigator)
 }

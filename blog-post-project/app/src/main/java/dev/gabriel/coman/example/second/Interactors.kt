@@ -2,46 +2,62 @@ package dev.gabriel.coman.example.second
 
 import android.content.Context
 
-//typealias LoadCtInteractor = (String) -> Unit
-//
-//fun LoadCtInteractorImpl(viewModel: ContactViewModel): LoadCtInteractor {
-//    return { id ->
-//        viewModel.getContact(id = id)
-//    }
-//}
-
 interface LoadContactInteractor {
-    fun load(id: String)
+    fun load()
+}
+
+interface LoadCalledContactInteractor {
+    fun load()
 }
 
 interface AddContactToFavouritesInteractor {
-    fun addToContacts(id: String)
-}
-
-interface CallContactInteractor {
-    fun call(id: String, context: Context)
+    fun addToContacts()
 }
 
 interface LoadLastSeenInteractor {
-    fun load(id: String)
+    fun load()
 }
 
-class LoadFullContactInteractor(private val viewModel: ContactViewModel): LoadContactInteractor {
-    override fun load(id: String) = viewModel.getContact(id = id)
+interface CallContactInteractor {
+    fun call()
 }
 
-class LoadCalledContactInteractor(private val viewModel: CallViewModel): LoadContactInteractor {
-    override fun load(id: String) = viewModel.getCalledContact(id = id)
+fun LoadFullContactInteractor(viewModel: ContactViewModel): (String) -> LoadContactInteractor {
+    return { id ->
+        object: LoadContactInteractor {
+            override fun load() = viewModel.getContact(id = id)
+        }
+    }
 }
 
-class AddContactToFavouritesInteractorImpl(private val viewModel: ContactViewModel): AddContactToFavouritesInteractor {
-    override fun addToContacts(id: String) = viewModel.addToFavourites(id = id)
+fun LoadCalledContactInteractor(viewModel: CallViewModel): (String) -> LoadCalledContactInteractor {
+    return { id ->
+        object : LoadCalledContactInteractor {
+            override fun load() = viewModel.getCalledContact(id = id)
+        }
+    }
 }
 
-class LoadLastSeenInteractorImpl(private val viewModel: LastSeenViewModel): LoadLastSeenInteractor {
-    override fun load(id: String) = viewModel.getLastSeen(id = id)
+fun AddContactToFavouritesInteractor(viewModel: ContactViewModel): (String) -> AddContactToFavouritesInteractor {
+    return { id ->
+        object : AddContactToFavouritesInteractor {
+            override fun addToContacts() = viewModel.addToFavourites(id = id)
+        }
+    }
 }
 
-class CallContactInteractorImpl(private val navigator: AppNavigator): CallContactInteractor {
-    override fun call(id: String, context: Context) = navigator.call(context = context, id = id)
+fun LoadLastSeenInteractor(viewModel: LastSeenViewModel): (String) -> LoadLastSeenInteractor {
+    return { id ->
+        object: LoadLastSeenInteractor {
+            override fun load() = viewModel.getLastSeen(id = id)
+        }
+    }
+}
+
+fun CallContactInteractor(navigator: AppNavigator): (String, Context) -> CallContactInteractor {
+    return { id, context ->
+        object: CallContactInteractor {
+            override fun call() = navigator.call(context = context, id = id)
+        }
+    }
 }

@@ -22,7 +22,7 @@ fun ContactComponent(context: Context, id: String): ContactViewImpl =
                 }
             }
             .apply {
-                bind(id = id, interactor = DI.loadFullContactInteractor)(this)
-                bind(id = id, interactor = DI.addContactToFavouritesInteractor)(this)
-                bind(id = id, interactor = DI.callContactInteractor)(this)
+                bind(interactor = DI.newLoadFullContactInteractor(id))(this)
+                bind(interactor = DI.addContactToFavouritesInteractor(id))(this)
+                bind(interactor = DI.callContactInteractor(id, context))(this)
             }

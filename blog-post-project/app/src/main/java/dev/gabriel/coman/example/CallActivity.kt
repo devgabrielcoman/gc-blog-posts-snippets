@@ -3,9 +3,7 @@ package dev.gabriel.coman.example
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import dev.gabriel.coman.example.second.DI
-import dev.gabriel.coman.example.second.bind
-import dev.gabriel.coman.example.second.redraw
+import dev.gabriel.coman.example.second.*
 import dev.gabriel.coman.example.views.CallViewImp
 
 class CallActivity: AppCompatActivity() {
@@ -28,5 +26,5 @@ fun CallComponent(context: Context, id: String): CallViewImp =
                 }
             }
             .apply {
-                bind(id = id, interactor = DI.loadCallContactInteractor)(this)
+                bind(interactor = DI.newCallContactInteractor(id))(this)
             }
