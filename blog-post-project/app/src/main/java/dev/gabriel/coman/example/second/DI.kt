@@ -11,6 +11,8 @@ object DI {
     val callViewModel = CallViewModel(repo = contactRepository)
     val lastSeenViewModel = LastSeenViewModel(repo = lastSeenRepository)
 
+    val loadFullCtInteractor = LoadCtInteractorImpl(viewModel = contactViewModel)
+
     val loadFullContactInteractor = LoadFullContactInteractor(viewModel = contactViewModel)
     val loadCallContactInteractor = LoadCalledContactInteractor(viewModel = callViewModel)
     val addContactToFavouritesInteractor = AddContactToFavouritesInteractorImpl(viewModel = contactViewModel)

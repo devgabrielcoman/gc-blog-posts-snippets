@@ -2,6 +2,14 @@ package dev.gabriel.coman.example.second
 
 import android.content.Context
 
+//typealias LoadCtInteractor = (String) -> Unit
+//
+//fun LoadCtInteractorImpl(viewModel: ContactViewModel): LoadCtInteractor {
+//    return { id ->
+//        viewModel.getContact(id = id)
+//    }
+//}
+
 interface LoadContactInteractor {
     fun load(id: String)
 }

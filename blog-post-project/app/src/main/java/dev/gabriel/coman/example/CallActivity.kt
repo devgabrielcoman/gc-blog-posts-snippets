@@ -16,11 +16,11 @@ class CallActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(ConnectedCallView(context = this, id = userId))
+        setContentView(CallComponent(context = this, id = userId))
     }
 }
 
-fun ConnectedCallView(context: Context, id: String): CallViewImp =
+fun CallComponent(context: Context, id: String): CallViewImp =
         CallViewImp(context = context)
             .apply {
                 DI.callViewModel.callback = {
