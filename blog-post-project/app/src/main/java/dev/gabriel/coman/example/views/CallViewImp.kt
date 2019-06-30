@@ -7,9 +7,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import dev.gabriel.coman.example.R
 
-class CallScreenImp
+class CallViewImp
 @JvmOverloads
-constructor(context: Context?, attrs: AttributeSet? = null): RelativeLayout(context, attrs), CallScreen {
+constructor(context: Context?, attrs: AttributeSet? = null): RelativeLayout(context, attrs), CallView {
     override val callingView: TextView by lazy {
         findViewById<TextView>(R.id.calling_text_view)
     }

@@ -2,6 +2,6 @@ package dev.gabriel.coman.example.views
 
 import android.widget.TextView
 
-interface CallScreen {
+interface CallView {
     val callingView: TextView
 }

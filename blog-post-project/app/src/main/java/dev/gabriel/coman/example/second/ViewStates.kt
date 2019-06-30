@@ -1,4 +1,4 @@
-package dev.gabriel.coman.example.state
+package dev.gabriel.coman.example.second
 
 import android.net.Uri
 
@@ -12,11 +12,6 @@ interface ContactViewState {
 
 interface LastSeenViewState {
     val lastSeenText: String
-}
-
-interface MainScreenViewState {
-    val contactViewState: ContactViewState
-    val lastSeenViewState: LastSeenViewState
 }
 
 interface CallViewState {

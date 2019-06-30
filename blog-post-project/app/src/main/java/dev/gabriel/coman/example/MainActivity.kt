@@ -3,42 +3,28 @@ package dev.gabriel.coman.example
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import dev.gabriel.coman.example.adaptors.*
-import dev.gabriel.coman.example.data.Api
-import dev.gabriel.coman.example.navigators.BasicNavigator
-import dev.gabriel.coman.example.navigators.MainNavigator
-import dev.gabriel.coman.example.viewmodels.ViewModel
-import dev.gabriel.coman.example.views.MainScreenImp
-
-object DI {
-    val viewModel = ViewModel(api = Api)
-    val navigator: BasicNavigator = MainNavigator()
-
-    val loadContactInteractor = LoadContactInteractorImpl(viewModel = viewModel)
-    val loadLastSeenInteractor = LoadLastSeenInteractorImpl(viewModel = viewModel)
-    val addOrRemoveContactInteractor = AddOrRemoveContactInteractorImpl(viewModel = viewModel)
-    val callInteractor = CallInteractorImpl(navigator = navigator)
-}
+import dev.gabriel.coman.example.second.DI
+import dev.gabriel.coman.example.second.bind
+import dev.gabriel.coman.example.second.redraw
+import dev.gabriel.coman.example.views.ContactViewImpl
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(ConnectedMainScreen(this))
+        setContentView(ConnectedContactView(context = this, id = "user-id"))
     }
 }
 
-fun ConnectedMainScreen(context: Context): MainScreenImp =
-    MainScreenImp(context = context)
-        .apply {
-            DI.viewModel.update = { state ->
-                redraw(contactViewState = state.contactViewState)(this.contactView)
-                redraw(lastSeenViewState = state.lastSeenViewState)(this.lastSeenView)
+fun ConnectedContactView(context: Context, id: String): ContactViewImpl =
+        ContactViewImpl(context = context)
+            .apply {
+                DI.contactViewModel.callback = { viewState ->
+                    redraw(contactViewState = viewState)(this)
+                }
             }
-        }
-        .apply {
-            bind(loadContactInteractor = DI.loadContactInteractor)(this.contactView)
-            bind(loadLastSeenInteractor = DI.loadLastSeenInteractor)(this.lastSeenView)
-            bind(addOrRemoveContactInteractor = DI.addOrRemoveContactInteractor)(this.contactView)
-            bind(callInteractor = DI.callInteractor)(this.contactView)
-        }
+            .apply {
+                bind(id = id, interactor = DI.loadFullContactInteractor)(this)
+                bind(id = id, interactor = DI.addContactToFavouritesInteractor)(this)
+                bind(id = id, interactor = DI.callContactInteractor)(this)
+            }
